@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/login.css">
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <header>
+        <!-- Header section with site navigation -->
+        <div class="container">
+            <h1>Login</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/reader">Reader Home</a></li>
+                    <li><a href="/add_user">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="form-section">
+                <h2>Login to Your Account</h2>
+                <% if (errorMessage) { %>
+                    <!-- Display error message if there is one -->
+                    <div class="error-message">
+                        <%= errorMessage %>
+                    </div>
+                    <% } %>
+                        <form action="/login" method="POST" class="login-form">
+                            <div class="form-group">
+                                <label for="usernameOrEmail">Username or Email:</label>
+                                <input type="text" id="usernameOrEmail" name="usernameOrEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" required>
+                                <!-- Toggle password visibility -->
+                                <span class="toggle-password" onclick="togglePassword()">Show Password</span>
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
+                        <div class="login-redirect">
+                            <a href="/add_user">Create a new account</a>
+                        </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Blogging Tool. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Function to toggle the visibility of the password field
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const togglePassword = document.querySelector('.toggle-password');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                togglePassword.textContent = 'Hide Password';
+            } else {
+                passwordField.type = 'password';
+                togglePassword.textContent = 'Show Password';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,249 @@
+/* Global reset and typography */
+body, h1, h2, h3, p, ul, li, a {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Main layout */
+body {
+    background-color: #ffffff;
+}
+
+main {
+    display: inline;
+}
+
+/* Container */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Top banner */
+.top-banner {
+    background-color: #101517;
+    color: #fff;
+    text-align: center;
+    padding: 5rem 0;
+    width: 100%;
+}
+
+.top-banner h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 4rem;
+    color: white;
+}
+
+.top-banner p {
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+/* Author banner */
+.author-banner {
+    background-color: #101517;
+    color: #fff;
+    text-align: center;
+    padding: 5rem 0;
+    width: 100%;
+}
+
+.profile-icon {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#sortForm {
+    padding-bottom: 20px;
+}
+
+.author-banner .title-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.settings-draft-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.settings-draft-buttons .btn,
+.settings-draft-buttons .btn-settings {
+    flex: 1;
+    width: 150px;
+    height: 60px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 50px;
+}
+
+.author-banner .title-settings h2 {
+    font-family: 'Proxima Nova';
+    font-size: 2rem;
+}
+
+/* Author section */
+.author-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.author-section-header {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.author-section-bio {
+    font-family: 'Proxima Nova';
+    font-size: 1.2rem;
+}
+
+.author-section-bio-p {
+    font-family: 'Proxima Nova';
+    font-size: 1rem;
+    color: #888;
+}
+
+.author-intro {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.title-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.title-settings h2 {
+    font-size: 4rem;
+    color: #ffffff;
+    font-family: 'Proxima Nova';
+}
+
+.author-section h3 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #101517;
+    font-family: "Times New Roman", Times, serif;
+}
+
+/* Articles list */
+.articles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.article-item {
+    background-color: #def1fc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.article-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.article-info h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #101517;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.article-info h4 .article-status {
+    font-size: 1rem;
+    color: #888;
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.meta-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.meta-info p {
+    margin-right: 10px;
+}
+
+.article-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #101517;
+}
+
+/* Article actions */
+.article-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 15%;
+}
+
+/* Buttons */
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+button {
+    flex: 1;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-primary {
+    background-color: #34b151;
+}
+
+.btn-primary:hover {
+    background-color: #136036;
+}

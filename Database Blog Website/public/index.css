@@ -1,0 +1,139 @@
+/* Container styling for centered content */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Top banner styling */
+.top-banner {
+    background-color: #101517;
+    color: #fff;
+    text-align: center;
+    padding: 5rem 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.top-banner h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 4rem;
+}
+
+.top-banner p {
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+/* Intro section styling */
+.intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 0px;
+}
+
+.intro-text {
+    flex: 1;
+    margin-right: 80px;
+}
+
+.intro h2 {
+    font-size: 2.5rem;
+    color: #000;
+    margin-bottom: 20px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.intro p {
+    font-size: 1.2rem;
+    color: #000;
+    margin-bottom: 30px;
+}
+
+.intro-image {
+    flex: 1;
+    text-align: right;
+}
+
+.intro-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Button styling */
+.btn {
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    margin-right: 5px;
+}
+
+/* Featured articles, latest posts, and reviews section styling */
+.featured-articles, .latest-posts, .reviews {
+    margin: 40px 0;
+}
+
+.featured-articles h2, .latest-posts h2, .reviews h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Article grid and post list styling */
+.article-grid, .post-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Article card, post item, and review box styling */
+.article-card, .post-item, .review-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+}
+
+.article-card img, .post-item img, .review-box img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Latest posts section margin */
+.latest-posts {
+    margin-bottom: 100px;
+}
+
+/* Button styling */
+.btn {
+    padding: 0.8rem 2rem;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    background-color: #0b0e10;
+}
+
+.btn-primary {
+    background-color: #0b0e10;
+}
+
+.btn-secondary {
+    background-color: #555;
+}
+
+.btn:hover {
+    background-color: rgba(16, 20, 23, 0.8);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(85, 85, 85, 0.8);
+}

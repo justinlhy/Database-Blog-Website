@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/settings.css">
+</head>
+
+<body>
+    <header>
+        <!-- Header section with site navigation -->
+        <div class="container">
+            <h1>Settings</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/reader">Reader Home</a></li>
+                    <li><a href="/add_user">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Update Your Settings</h2>
+            <!-- Settings form for updating personal and blog details -->
+            <form id="settings-form" action="/profile/settings" method="POST">
+                <h3>Personal Details</h3>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="<%= username %>">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<%= email %>">
+                </div>
+                <div class="form-group">
+                    <label for="current-password">Current Password:</label>
+                    <input type="password" id="current-password" name="current-password"
+                        placeholder="Enter current password">
+                    <div id="current-password-status" class="password-status"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter new password">
+                    <span class="toggle-password" onclick="togglePassword('password', this)">Show Password</span>
+                    <div id="password-strength" class="password-strength"></div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password">
+                    <div id="confirm-password-error" class="error-message"></div>
+                </div>
+                <hr>
+                <h3>Blog Details</h3>
+                <div class="form-group">
+                    <label for="icon">Select Icon:</label>
+                    <div class="icon-selection">
+                        <% const icons=['user.png', 'woman.png' , 'bear.png' , 'cat.png' , 'chicken.png' , 'dog.png'
+                            , 'meerkat.png' , 'panda.png' , 'rabbit.png' ]; %>
+                            <% icons.forEach(iconName=> { %>
+                                <label>
+                                    <input type="radio" name="icon" value="<%= iconName %>" <%=icon===iconName
+                                        ? 'checked' : '' %> >
+                                    <img src="/images/<%= iconName %>" alt="<%= iconName %>" class="icon-preview">
+                                </label>
+                                <% }); %>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="blogTitle">Blog Title:</label>
+                    <input type="text" id="blogTitle" name="blogTitle" value="<%= blogTitle %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="displayName">Author Name:</label>
+                    <input type="text" id="displayName" name="displayName" value="<%= displayName %>">
+                </div>
+                <div class="form-group">
+                    <label for="introduction">Introduction:</label>
+                    <textarea id="introduction" name="introduction" rows="3" required><%= introduction %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="3" required><%= bio %></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='/profile'">Back</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Blogging Tool. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript functions for settings -->
+    <script>
+        // Toggle password visibility
+        function togglePassword(fieldId, toggleElement) {
+            const passwordField = document.getElementById(fieldId);
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleElement.textContent = 'Hide Password';
+            } else {
+                passwordField.type = 'password';
+                toggleElement.textContent = 'Show Password';
+            }
+        }
+
+        // Validate new password strength
+        document.getElementById('password').addEventListener('input', function () {
+            const password = document.getElementById('password').value;
+            const passwordStrength = document.getElementById('password-strength');
+            const passwordCriteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+            if (passwordCriteria.test(password)) {
+                passwordStrength.textContent = 'Strong password';
+                passwordStrength.style.color = 'green';
+            } else {
+                passwordStrength.textContent = 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character';
+                passwordStrength.style.color = 'red';
+            }
+        });
+
+        // Validate confirm password
+        document.getElementById('confirm-password').addEventListener('input', function () {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const confirmPasswordError = document.getElementById('confirm-password-error');
+
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Passwords do not match';
+            } else {
+                confirmPasswordError.textContent = '';
+            }
+        });
+
+        // Check current password validity
+        document.getElementById('current-password').addEventListener('input', function () {
+            const currentPassword = document.getElementById('current-password').value;
+            const currentPasswordStatus = document.getElementById('current-password-status');
+
+            if (currentPassword) {
+                fetch(`/profile/check-password?password=${encodeURIComponent(currentPassword)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.valid) {
+                            currentPasswordStatus.textContent = 'Current password is correct';
+                            currentPasswordStatus.style.color = 'green';
+                        } else {
+                            currentPasswordStatus.textContent = 'Current password is incorrect';
+                            currentPasswordStatus.style.color = 'red';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error checking current password:', error);
+                        currentPasswordStatus.textContent = 'Error checking password';
+                        currentPasswordStatus.style.color = 'red';
+                    });
+            } else {
+                currentPasswordStatus.textContent = '';
+            }
+        });
+
+        // Validate form submission
+        document.getElementById('settings-form').addEventListener('submit', function (event) {
+            const currentPassword = document.getElementById('current-password').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const confirmPasswordError = document.getElementById('confirm-password-error');
+
+            // Ensure that confirm password is not required if password is empty
+            if (!password) {
+                document.getElementById('confirm-password').removeAttribute('required');
+            }
+
+            // Perform client-side validation for passwords
+            if (password && password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Passwords do not match';
+                event.preventDefault();
+            }
+
+            // Ensure the current password is validated before allowing password change
+            if (password && !currentPassword) {
+                alert('Please enter your current password to change your password.');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/blog_template.css">
+</head>
+
+<body>
+    <!-- Header section with navigation links -->
+    <header>
+        <div class="container">
+            <h1>
+                <%= article.author %>: <%= title %>
+            </h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/reader">Reader Home</a></li>
+                    <li><a href="/add_user">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="article-container">
+                <!-- Article header with like button -->
+                <div class="article-header">
+                    <h2>
+                        <%= article.title %>
+                    </h2>
+                    <% if (!article.isLiked) { %>
+                        <button class="btn btn-like" id="like-btn"
+                            onclick="likeArticle('<%= article.id %>')">Like</button>
+                        <% } else { %>
+                            <button class="btn btn-like liked" id="like-btn" disabled>Liked</button>
+                            <% } %>
+                </div>
+                <!-- Meta information about the article -->
+                <div class="meta-info">
+                    <p>
+                        <%= article.readCount %> Viewers &#8226; <span id="like-count">
+                                <%= article.likeCount %>
+                            </span> Likes
+                    </p>
+                </div>
+                <p class="meta">Published Date: <%= article.publishedDate %>
+                </p>
+                <!-- Article content -->
+                <div>
+                    <%- article.content.replace(/\n/g, '<br>' ) %>
+                        <p class="meta">Written by: <img src="/images/<%= article.icon %>" alt="Author Icon"
+                                class="small-icon">
+                            <%= article.author %>
+                        </p>
+                </div>
+                <!-- Comment section -->
+                <section class="comment-section">
+                    <h3>Comments</h3>
+                    <ul>
+                        <% comments.forEach(comment=> { %>
+                            <li>
+                                <p><img src="/images/<%= comment.icon %>" alt="Commenter Icon" class="small-icon">
+                                    <strong>
+                                        <%= comment.username %>:
+                                    </strong> <%- comment.comment.replace(/\n/g, '<br>' ) %></p>
+                            </li>
+                            <% }); %>
+                    </ul>
+                    <!-- Comment form -->
+                    <form action="/profile/article/<%= article.id %>/comment" method="POST">
+                        <div class="form-group">
+                            <label for="comment">Add Comment:</label>
+                            <textarea class="comment-box" id="comment" name="comment" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Submit</button>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Blogging Tool. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript function for liking an article -->
+    <script>
+        function likeArticle(articleId) {
+            fetch(`/article/like/${articleId}`, {
+                method: 'POST',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.likeCount !== undefined) {
+                        const likeCountElement = document.getElementById('like-count');
+                        if (likeCountElement) {
+                            likeCountElement.textContent = data.likeCount;
+                        }
+                        const likeButton = document.getElementById('like-btn');
+                        if (likeButton) {
+                            likeButton.textContent = 'Liked';
+                            likeButton.classList.add('liked');
+                            likeButton.disabled = true;
+                        }
+                    } else {
+                        console.error('Already liked');
+                    }
+                })
+                .catch(error => console.error('Error liking article:', error));
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+/* Main content padding */
+main {
+    padding: 20px 0;
+}
+
+/* Section margin */
+section {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* Header and subheader alignment and spacing */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Form styling */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form labels styling */
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: black;
+}
+
+/* Form input and textarea styling */
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Form button styling */
+form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: auto;
+}
+
+/* Form button hover effect */
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Article information styling */
+.article-info {
+    justify-content: space-between;
+    align-items: left;
+    margin-bottom: 20px;
+    color: #888;
+}
+
+/* Secondary button styling */
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+/* Secondary button hover effect */
+.btn-secondary:hover {
+    background-color: #5a6268;
+}

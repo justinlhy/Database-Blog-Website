@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/reader_home.css">
+</head>
+
+<body>
+    <header>
+        <!-- Header section with site navigation -->     
+        <div class="container">
+            <h1>Reader Home</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/reader">Reader Home</a></li>
+                    <li><a href="/add_user">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="top-banner">
+            <h2>Explore blogs</h2>
+            <p>"Your Journey Begins Here, One Word at a Time"</p>
+        </div>
+        <div class="container">
+            <section class="reader-section">
+                <h2>Available Blogs</h2>
+                <!-- Form to sort blogs -->
+                <form id="sortForm" action="/reader" method="get">
+                    <label for="sortBy">Sort by:</label>
+                    <select name="sortBy" id="sortBy" onchange="document.getElementById('sortForm').submit()">
+                        <option value="publishedDate" <%=sortBy==='publishedDate' ? 'selected' : '' %>>Published Date
+                        </option>
+                        <option value="likeCount" <%=sortBy==='likeCount' ? 'selected' : '' %>>Likes</option>
+                        <option value="readCount" <%=sortBy==='readCount' ? 'selected' : '' %>>Views</option>
+                    </select>
+                    <select name="sortOrder" id="sortOrder" onchange="document.getElementById('sortForm').submit()">
+                        <option value="ASC" <%=sortOrder==='ASC' ? 'selected' : '' %>>Ascending</option>
+                        <option value="DESC" <%=sortOrder==='DESC' ? 'selected' : '' %>>Descending</option>
+                    </select>
+                </form>
+                <!-- List of blogs -->
+                <ul class="blogs-list">
+                    <% blogs.forEach(blog=> { %>
+                        <a href="/profile/article/<%= blog.id %>" class="blog-item">
+                            <li>
+                                <div class="blog-info">
+                                    <h4>
+                                        <%= blog.title %>
+                                    </h4>
+                                    <div class="meta">
+                                        <span>by <%= blog.author %></span>
+                                        <span> • </span>
+                                        <span>
+                                            <%= blog.publishedDate %>
+                                        </span>
+                                    </div>
+                                    <p>
+                                        <%= blog.content.substring(0, 100) %>...
+                                    </p>
+                                    <div class="meta">
+                                        <span>Likes: <%= blog.likeCount %></span>
+                                        <span> • </span>
+                                        <span>Views: <%= blog.readCount %></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                        <% }); %>
+                </ul>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Blogging Tool. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

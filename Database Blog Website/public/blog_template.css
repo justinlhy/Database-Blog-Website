@@ -1,0 +1,113 @@
+/* Container styling */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Article container styling */
+.article-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Article header with like button */
+.article-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Article title styling */
+.article-container h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+/* Meta information about the article */
+.meta {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.meta-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.meta-info p {
+    margin-right: 10px;
+}
+
+/* Author icon styling */
+.small-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+/* General button styles */
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    display: inline-block;
+    width: 100px;
+}
+
+.btn-like {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+    width: 5%;
+    float: right;
+}
+
+.btn-like.liked {
+    background-color: #6c757d;
+    width: 5%;
+    float: right;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Comment box styling */
+.comment-box {
+    width: 99%;
+}
+
+/* Comment section styling */
+.comment-section {
+    margin-top: 20px;
+}
+
+.comment-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.comment-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comment-section li {
+    margin-bottom: 10px;
+}
+
+.comment-section .form-group {
+    margin-bottom: 10px;
+}
+

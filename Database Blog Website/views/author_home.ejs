@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+    <!-- Header section with navigation links -->
+    <header>
+        <div class="container">
+            <h1>Welcome to <%= username %>'s Blog</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/author">Author Home</a></li>
+                    <li><a href="/reader">Reader Home</a></li>
+                    <li><a href="/users/settings">Settings</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <!-- Author Home Page Section -->
+            <section class="author-section">
+                <h2>Author Home Page</h2>
+                <p>Author Name: <%= username %>
+                </p>
+
+                <!-- List of Published Articles -->
+                <h3>Published Articles</h3>
+                <ul>
+                    <% publishedArticles.forEach(article=> { %>
+                        <li>
+                            <%= article.title %> - <%= article.publishedDate %>
+                                    <a href="/reader/article/<%= article.id %>">Read</a>
+                                    <button onclick="deleteArticle('<%= article.id %>')">Delete</button>
+                        </li>
+                        <% }); %>
+                </ul>
+
+                <!-- List of Draft Articles -->
+                <h3>Draft Articles</h3>
+                <ul>
+                    <% draftArticles.forEach(article=> { %>
+                        <li>
+                            <%= article.title %> - Created: <%= article.createdDate %>, Last Modified: <%=
+                                        article.modifiedDate %>
+                                        <a href="/author/edit/<%= article.id %>">Edit</a>
+                                        <button onclick="publishArticle('<%= article.id %>')">Publish</button>
+                                        <button onclick="deleteArticle('<%= article.id %>')">Delete</button>
+                        </li>
+                        <% }); %>
+                </ul>
+
+                <!-- Button to create a new draft article -->
+                <button onclick="createNewDraft()">Create New Draft</button>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 <%= username %>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript functions for button actions -->
+    <script>
+        // Function to redirect to create a new draft article
+        function createNewDraft() {
+            window.location.href = '/author/new-draft';
+        }
+
+        // Function to publish an article
+        function publishArticle(articleId) {
+            console.log('Publish article with ID: ' + articleId);
+        }
+
+        // Function to delete an article
+        function deleteArticle(articleId) {
+            console.log('Delete article with ID: ' + articleId);
+        }
+    </script>
+</body>
+
+</html>

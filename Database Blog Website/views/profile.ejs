@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/profile.css">
+</head>
+
+<body>
+    <header>
+        <!-- Header section with site navigation -->        
+        <div class="container">
+            <h1>Welcome to <%= displayName %>'s Blog</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/reader">Reader Home</a></li>
+                    <li><a href="/add_user">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="top-banner">
+            <div class="title-settings">
+                <!-- Display user's profile icon -->
+                <img src="/images/<%= icon %>" alt="Profile Icon" class="profile-icon">
+                <h2>
+                    <%= blogTitle %>
+                </h2>
+                <p class="author-section-header">
+                    <%= displayName %> &#8226; <%= introduction %>
+                </p>
+                <p class="author-section-bio">Biography</p>
+                <p class="author-section-bio-p">@<%= username %>
+                </p>
+                <p class="author-section-bio-p">
+                    <%= bio %>
+                </p>
+                <div class="settings-draft-buttons">
+                    <!-- Button to navigate to settings page -->
+                    <button class="btn btn-settings"
+                        onclick="window.location.href='/profile/settings'">Settings</button>
+                    <!-- Button to create a new draft -->
+                    <button class="btn btn-primary" onclick="createNewDraft()">New Draft</button>
+                    <!-- Logout form -->
+                    <form id="logout-form" action="/logout" method="POST" style="display: inline;">
+                        <button class="btn btn-secondary" type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <section class="author-section">
+                <h3>Articles</h3>
+                <!-- Form to sort articles -->
+                <form id="sortForm" action="/profile" method="get">
+                    <label for="sortBy">Sort by:</label>
+                    <select name="sortBy" id="sortBy" onchange="document.getElementById('sortForm').submit()">
+                        <option value="publishedDate" <%=sortBy==='publishedDate' ? 'selected' : '' %>>Published Date
+                        </option>
+                        <option value="likeCount" <%=sortBy==='likeCount' ? 'selected' : '' %>>Likes</option>
+                        <option value="readCount" <%=sortBy==='readCount' ? 'selected' : '' %>>Views</option>
+                        <option value="status" <%=sortBy==='status' ? 'selected' : '' %>>Status</option>
+                    </select>
+                    <select name="sortOrder" id="sortOrder" onchange="document.getElementById('sortForm').submit()">
+                        <option value="ASC" <%=sortOrder==='ASC' ? 'selected' : '' %>>Ascending</option>
+                        <option value="DESC" <%=sortOrder==='DESC' ? 'selected' : '' %>>Descending</option>
+                    </select>
+                </form>
+                <ul class="articles-list">
+                    <!-- Loop through articles and display each one -->
+                    <% articles.forEach(article=> { %>
+                        <li class="article-item" id="article-<%= article.id %>">
+                            <a class="article-link" href="/profile/article/<%= article.id %>">
+                                <div class="article-info">
+                                    <h4>
+                                        <%= article.title %>
+                                            <% if (article.status==='published' ) { %>
+                                                <span class="article-status">Published</span>
+                                                <% } else { %>
+                                                    <span class="article-status">Draft</span>
+                                                    <% } %>
+                                    </h4>
+                                    <div class="meta-info">
+                                        <p>
+                                            <%= article.readCount %> Viewers &#8226; <span id="like-count">
+                                                    <%= article.likeCount %>
+                                                </span> Likes
+                                        </p>
+                                    </div>
+                                    <p>Created: <%= article.createdDate %>
+                                    </p>
+                                    <p>Last Modified: <%= article.modifiedDate %>
+                                    </p>
+                                    <% if (article.status==='published' ) { %>
+                                        <p>Published Date: <%= article.publishedDate %>
+                                        </p>
+                                        <% } %>
+                                </div>
+                            </a>
+                            <div class="article-actions">
+                                <!-- Link to edit the article -->
+                                <a class="btn btn-secondary" href="/profile/article/edit/<%= article.id %>">Edit</a>
+                                <!-- Button to delete the article -->
+                                <button class="btn btn-danger"
+                                    onclick="deleteArticle('<%= article.id %>')">Delete</button>
+                                <% if (article.status==='draft' ) { %>
+                                    <!-- Button to publish the article -->
+                                    <button class="btn btn-primary"
+                                        onclick="publishArticle('<%= article.id %>')">Publish</button>
+                                    <% } %>
+                            </div>
+                        </li>
+                        <% }); %>
+                </ul>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 <%= blogTitle %>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function createNewDraft() {
+            window.location.href = '/profile/new_article';
+        }
+
+        function deleteArticle(articleId) {
+            if (confirm('Are you sure you want to delete this article?')) {
+                fetch(`/profile/article/${articleId}`, {
+                    method: 'DELETE',
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            const articleElement = document.getElementById(`article-${articleId}`);
+                            if (articleElement) {
+                                articleElement.remove();
+                            }
+                        } else {
+                            console.error('Failed to delete article');
+                        }
+                    })
+                    .catch(error => console.error('Error deleting article:', error));
+            }
+        }
+
+        function publishArticle(articleId) {
+            fetch(`/profile/article/publish/${articleId}`, {
+                method: 'POST',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        console.error('Failed to publish article');
+                    }
+                })
+                .catch(error => console.error('Error publishing article:', error));
+        }
+    </script>
+</body>
+
+</html>
