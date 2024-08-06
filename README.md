@@ -1,4 +1,4 @@
-# Database Network and the Web - Mid Term Submission
+# Database Blog Website
 
 ## Description
 Follow the instructions below to set up and run the application.
